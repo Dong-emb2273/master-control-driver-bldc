@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "STM32 Debug (ST-Link)",
+            "cwd": "${workspaceFolder}",
+            "executable": "${workspaceFolder}/build/master_control_bldc_driver.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "runToEntryPoint": "main",
+            "servertype": "stlink",
+            "toolchainPrefix": "arm-none-eabi",
+            "gdbPath": "gdb-multiarch",
+            "device": "STM32F405VG",
+            "svdFile": "" 
+        }
+    ]
+}

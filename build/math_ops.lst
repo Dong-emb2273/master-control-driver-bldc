@@ -1,0 +1,495 @@
+ARM GAS  /tmp/ccLFBdPY.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"math_ops.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.fast_fmaxf,"ax",%progbits
+  18              		.align	1
+  19              		.global	fast_fmaxf
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	fast_fmaxf:
+  27              	.LVL0:
+  28              	.LFB0:
+  29              		.file 1 "Core/Src/math_ops.c"
+   1:Core/Src/math_ops.c **** #include "math_ops.h"
+   2:Core/Src/math_ops.c **** 
+   3:Core/Src/math_ops.c **** 
+   4:Core/Src/math_ops.c **** 
+   5:Core/Src/math_ops.c **** float fast_fmaxf(float x, float y){
+  30              		.loc 1 5 35 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		@ link register save eliminated.
+  35              		.loc 1 5 35 is_stmt 0 view .LVU1
+  36 0000 F0EE407A 		vmov.f32	s15, s0
+  37 0004 B0EE600A 		vmov.f32	s0, s1
+  38              	.LVL1:
+   6:Core/Src/math_ops.c **** 	/// Returns maximum of x, y ///
+   7:Core/Src/math_ops.c **** 	return (((x)>(y))?(x):(y));
+  39              		.loc 1 7 2 is_stmt 1 view .LVU2
+  40              		.loc 1 7 23 is_stmt 0 view .LVU3
+  41 0008 F4EEE07A 		vcmpe.f32	s15, s1
+  42 000c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+  43 0010 01DD     		ble	.L2
+  44 0012 B0EE670A 		vmov.f32	s0, s15
+  45              	.L2:
+   8:Core/Src/math_ops.c **** }
+  46              		.loc 1 8 1 discriminator 4 view .LVU4
+  47 0016 7047     		bx	lr
+  48              		.cfi_endproc
+  49              	.LFE0:
+  51              		.section	.text.fast_fminf,"ax",%progbits
+ARM GAS  /tmp/ccLFBdPY.s 			page 2
+
+
+  52              		.align	1
+  53              		.global	fast_fminf
+  54              		.syntax unified
+  55              		.thumb
+  56              		.thumb_func
+  57              		.fpu fpv4-sp-d16
+  59              	fast_fminf:
+  60              	.LVL2:
+  61              	.LFB1:
+   9:Core/Src/math_ops.c **** 
+  10:Core/Src/math_ops.c **** float fast_fminf(float x, float y){
+  62              		.loc 1 10 35 is_stmt 1 view -0
+  63              		.cfi_startproc
+  64              		@ args = 0, pretend = 0, frame = 0
+  65              		@ frame_needed = 0, uses_anonymous_args = 0
+  66              		@ link register save eliminated.
+  67              		.loc 1 10 35 is_stmt 0 view .LVU6
+  68 0000 F0EE407A 		vmov.f32	s15, s0
+  69 0004 B0EE600A 		vmov.f32	s0, s1
+  70              	.LVL3:
+  11:Core/Src/math_ops.c **** 	/// Returns minimum of x, y ///
+  12:Core/Src/math_ops.c **** 	return (((x)<(y))?(x):(y));
+  71              		.loc 1 12 2 is_stmt 1 view .LVU7
+  72              		.loc 1 12 23 is_stmt 0 view .LVU8
+  73 0008 F4EEE07A 		vcmpe.f32	s15, s1
+  74 000c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+  75 0010 01D5     		bpl	.L6
+  76 0012 B0EE670A 		vmov.f32	s0, s15
+  77              	.L6:
+  13:Core/Src/math_ops.c **** }
+  78              		.loc 1 13 1 discriminator 4 view .LVU9
+  79 0016 7047     		bx	lr
+  80              		.cfi_endproc
+  81              	.LFE1:
+  83              		.section	.text.fmaxf3,"ax",%progbits
+  84              		.align	1
+  85              		.global	fmaxf3
+  86              		.syntax unified
+  87              		.thumb
+  88              		.thumb_func
+  89              		.fpu fpv4-sp-d16
+  91              	fmaxf3:
+  92              	.LVL4:
+  93              	.LFB2:
+  14:Core/Src/math_ops.c **** 
+  15:Core/Src/math_ops.c **** float fmaxf3(float x, float y, float z){
+  94              		.loc 1 15 40 is_stmt 1 view -0
+  95              		.cfi_startproc
+  96              		@ args = 0, pretend = 0, frame = 0
+  97              		@ frame_needed = 0, uses_anonymous_args = 0
+  98              		@ link register save eliminated.
+  99              		.loc 1 15 40 is_stmt 0 view .LVU11
+ 100 0000 F0EE407A 		vmov.f32	s15, s0
+ 101 0004 B0EE410A 		vmov.f32	s0, s2
+ 102              	.LVL5:
+  16:Core/Src/math_ops.c **** 	/// Returns maximum of x, y, z ///
+  17:Core/Src/math_ops.c **** 	return (x > y ? (x > z ? x : z) : (y > z ? y : z));
+ARM GAS  /tmp/ccLFBdPY.s 			page 3
+
+
+ 103              		.loc 1 17 2 is_stmt 1 view .LVU12
+ 104              		.loc 1 17 34 is_stmt 0 view .LVU13
+ 105 0008 F4EEE07A 		vcmpe.f32	s15, s1
+ 106 000c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 107 0010 07DD     		ble	.L18
+ 108              		.loc 1 17 29 discriminator 1 view .LVU14
+ 109 0012 F4EEC17A 		vcmpe.f32	s15, s2
+ 110 0016 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 111 001a 09DD     		ble	.L12
+ 112              		.loc 1 17 29 view .LVU15
+ 113 001c B0EE670A 		vmov.f32	s0, s15
+ 114 0020 7047     		bx	lr
+ 115              	.LVL6:
+ 116              	.L18:
+ 117              		.loc 1 17 47 discriminator 2 view .LVU16
+ 118 0022 F4EEC10A 		vcmpe.f32	s1, s2
+ 119 0026 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 120 002a 01DD     		ble	.L12
+ 121              		.loc 1 17 47 view .LVU17
+ 122 002c B0EE600A 		vmov.f32	s0, s1
+ 123              	.LVL7:
+ 124              	.L12:
+  18:Core/Src/math_ops.c **** }
+ 125              		.loc 1 18 1 discriminator 12 view .LVU18
+ 126 0030 7047     		bx	lr
+ 127              		.cfi_endproc
+ 128              	.LFE2:
+ 130              		.section	.text.fminf3,"ax",%progbits
+ 131              		.align	1
+ 132              		.global	fminf3
+ 133              		.syntax unified
+ 134              		.thumb
+ 135              		.thumb_func
+ 136              		.fpu fpv4-sp-d16
+ 138              	fminf3:
+ 139              	.LVL8:
+ 140              	.LFB3:
+  19:Core/Src/math_ops.c **** 
+  20:Core/Src/math_ops.c **** float fminf3(float x, float y, float z){
+ 141              		.loc 1 20 40 is_stmt 1 view -0
+ 142              		.cfi_startproc
+ 143              		@ args = 0, pretend = 0, frame = 0
+ 144              		@ frame_needed = 0, uses_anonymous_args = 0
+ 145              		@ link register save eliminated.
+ 146              		.loc 1 20 40 is_stmt 0 view .LVU20
+ 147 0000 F0EE407A 		vmov.f32	s15, s0
+ 148 0004 B0EE410A 		vmov.f32	s0, s2
+ 149              	.LVL9:
+  21:Core/Src/math_ops.c **** 	/// Returns minimum of x, y, z ///
+  22:Core/Src/math_ops.c **** 	return (x < y ? (x < z ? x : z) : (y < z ? y : z));
+ 150              		.loc 1 22 2 is_stmt 1 view .LVU21
+ 151              		.loc 1 22 34 is_stmt 0 view .LVU22
+ 152 0008 F4EEE07A 		vcmpe.f32	s15, s1
+ 153 000c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 154 0010 07D5     		bpl	.L28
+ 155              		.loc 1 22 29 discriminator 1 view .LVU23
+ 156 0012 F4EEC17A 		vcmpe.f32	s15, s2
+ARM GAS  /tmp/ccLFBdPY.s 			page 4
+
+
+ 157 0016 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 158 001a 09D5     		bpl	.L22
+ 159              		.loc 1 22 29 view .LVU24
+ 160 001c B0EE670A 		vmov.f32	s0, s15
+ 161 0020 7047     		bx	lr
+ 162              	.LVL10:
+ 163              	.L28:
+ 164              		.loc 1 22 47 discriminator 2 view .LVU25
+ 165 0022 F4EEC10A 		vcmpe.f32	s1, s2
+ 166 0026 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 167 002a 01D5     		bpl	.L22
+ 168              		.loc 1 22 47 view .LVU26
+ 169 002c B0EE600A 		vmov.f32	s0, s1
+ 170              	.LVL11:
+ 171              	.L22:
+  23:Core/Src/math_ops.c **** }
+ 172              		.loc 1 23 1 discriminator 12 view .LVU27
+ 173 0030 7047     		bx	lr
+ 174              		.cfi_endproc
+ 175              	.LFE3:
+ 177              		.section	.text.limit_norm,"ax",%progbits
+ 178              		.align	1
+ 179              		.global	limit_norm
+ 180              		.syntax unified
+ 181              		.thumb
+ 182              		.thumb_func
+ 183              		.fpu fpv4-sp-d16
+ 185              	limit_norm:
+ 186              	.LVL12:
+ 187              	.LFB4:
+  24:Core/Src/math_ops.c **** /*
+  25:Core/Src/math_ops.c **** float roundf(float x){
+  26:Core/Src/math_ops.c **** 	/// Returns nearest integer ///
+  27:Core/Src/math_ops.c **** 	return x < 0.0f ? ceilf(x - 0.5f) : floorf(x + 0.5f);
+  28:Core/Src/math_ops.c **** 	}
+  29:Core/Src/math_ops.c **** */
+  30:Core/Src/math_ops.c **** void limit_norm(float *x, float *y, float limit){
+ 188              		.loc 1 30 49 is_stmt 1 view -0
+ 189              		.cfi_startproc
+ 190              		@ args = 0, pretend = 0, frame = 0
+ 191              		@ frame_needed = 0, uses_anonymous_args = 0
+ 192              		.loc 1 30 49 is_stmt 0 view .LVU29
+ 193 0000 38B5     		push	{r3, r4, r5, lr}
+ 194              	.LCFI0:
+ 195              		.cfi_def_cfa_offset 16
+ 196              		.cfi_offset 3, -16
+ 197              		.cfi_offset 4, -12
+ 198              		.cfi_offset 5, -8
+ 199              		.cfi_offset 14, -4
+ 200 0002 2DED028B 		vpush.64	{d8}
+ 201              	.LCFI1:
+ 202              		.cfi_def_cfa_offset 24
+ 203              		.cfi_offset 80, -24
+ 204              		.cfi_offset 81, -20
+ 205 0006 0546     		mov	r5, r0
+ 206 0008 0C46     		mov	r4, r1
+ 207 000a B0EE408A 		vmov.f32	s16, s0
+ARM GAS  /tmp/ccLFBdPY.s 			page 5
+
+
+  31:Core/Src/math_ops.c **** 	/// Scales the lenght of vector (x, y) to be <= limit ///
+  32:Core/Src/math_ops.c **** 	float norm = sqrtf(*x * *x + *y * *y);
+ 208              		.loc 1 32 2 is_stmt 1 view .LVU30
+ 209              		.loc 1 32 21 is_stmt 0 view .LVU31
+ 210 000e 90ED000A 		vldr.32	s0, [r0]
+ 211              	.LVL13:
+ 212              		.loc 1 32 24 view .LVU32
+ 213 0012 20EE000A 		vmul.f32	s0, s0, s0
+ 214              		.loc 1 32 31 view .LVU33
+ 215 0016 D1ED007A 		vldr.32	s15, [r1]
+ 216              		.loc 1 32 34 view .LVU34
+ 217 001a 67EEA77A 		vmul.f32	s15, s15, s15
+ 218              		.loc 1 32 15 view .LVU35
+ 219 001e 30EE270A 		vadd.f32	s0, s0, s15
+ 220 0022 FFF7FEFF 		bl	sqrtf
+ 221              	.LVL14:
+  33:Core/Src/math_ops.c **** 	if(norm > limit){
+ 222              		.loc 1 33 2 is_stmt 1 view .LVU36
+ 223              		.loc 1 33 4 is_stmt 0 view .LVU37
+ 224 0026 B4EEC80A 		vcmpe.f32	s0, s16
+ 225 002a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 226 002e 0FDD     		ble	.L29
+  34:Core/Src/math_ops.c **** 		*x = *x * limit/norm;
+ 227              		.loc 1 34 3 is_stmt 1 view .LVU38
+ 228              		.loc 1 34 8 is_stmt 0 view .LVU39
+ 229 0030 D5ED007A 		vldr.32	s15, [r5]
+ 230              		.loc 1 34 11 view .LVU40
+ 231 0034 67EE887A 		vmul.f32	s15, s15, s16
+ 232              		.loc 1 34 18 view .LVU41
+ 233 0038 87EE807A 		vdiv.f32	s14, s15, s0
+ 234              		.loc 1 34 6 view .LVU42
+ 235 003c 85ED007A 		vstr.32	s14, [r5]
+  35:Core/Src/math_ops.c **** 		*y = *y * limit/norm;
+ 236              		.loc 1 35 3 is_stmt 1 view .LVU43
+ 237              		.loc 1 35 8 is_stmt 0 view .LVU44
+ 238 0040 D4ED007A 		vldr.32	s15, [r4]
+ 239              		.loc 1 35 11 view .LVU45
+ 240 0044 27EE888A 		vmul.f32	s16, s15, s16
+ 241              	.LVL15:
+ 242              		.loc 1 35 18 view .LVU46
+ 243 0048 C8EE007A 		vdiv.f32	s15, s16, s0
+ 244              		.loc 1 35 6 view .LVU47
+ 245 004c C4ED007A 		vstr.32	s15, [r4]
+ 246              	.L29:
+  36:Core/Src/math_ops.c **** 	}
+  37:Core/Src/math_ops.c **** }
+ 247              		.loc 1 37 1 view .LVU48
+ 248 0050 BDEC028B 		vldm	sp!, {d8}
+ 249              	.LCFI2:
+ 250              		.cfi_restore 80
+ 251              		.cfi_restore 81
+ 252              		.cfi_def_cfa_offset 16
+ 253 0054 38BD     		pop	{r3, r4, r5, pc}
+ 254              		.loc 1 37 1 view .LVU49
+ 255              		.cfi_endproc
+ 256              	.LFE4:
+ 258              		.section	.text.limit,"ax",%progbits
+ARM GAS  /tmp/ccLFBdPY.s 			page 6
+
+
+ 259              		.align	1
+ 260              		.global	limit
+ 261              		.syntax unified
+ 262              		.thumb
+ 263              		.thumb_func
+ 264              		.fpu fpv4-sp-d16
+ 266              	limit:
+ 267              	.LVL16:
+ 268              	.LFB5:
+  38:Core/Src/math_ops.c **** 	
+  39:Core/Src/math_ops.c **** void limit(float *x, float min, float max){
+ 269              		.loc 1 39 43 is_stmt 1 view -0
+ 270              		.cfi_startproc
+ 271              		@ args = 0, pretend = 0, frame = 0
+ 272              		@ frame_needed = 0, uses_anonymous_args = 0
+ 273              		.loc 1 39 43 is_stmt 0 view .LVU51
+ 274 0000 10B5     		push	{r4, lr}
+ 275              	.LCFI3:
+ 276              		.cfi_def_cfa_offset 8
+ 277              		.cfi_offset 4, -8
+ 278              		.cfi_offset 14, -4
+ 279 0002 2DED028B 		vpush.64	{d8}
+ 280              	.LCFI4:
+ 281              		.cfi_def_cfa_offset 16
+ 282              		.cfi_offset 80, -16
+ 283              		.cfi_offset 81, -12
+ 284 0006 0446     		mov	r4, r0
+ 285 0008 B0EE408A 		vmov.f32	s16, s0
+  40:Core/Src/math_ops.c **** 	*x = fast_fmaxf(fast_fminf(*x, max), min);
+ 286              		.loc 1 40 2 is_stmt 1 view .LVU52
+ 287              		.loc 1 40 7 is_stmt 0 view .LVU53
+ 288 000c 90ED000A 		vldr.32	s0, [r0]
+ 289              	.LVL17:
+ 290              		.loc 1 40 7 view .LVU54
+ 291 0010 FFF7FEFF 		bl	fast_fminf
+ 292              	.LVL18:
+ 293              		.loc 1 40 7 view .LVU55
+ 294 0014 F0EE480A 		vmov.f32	s1, s16
+ 295 0018 FFF7FEFF 		bl	fast_fmaxf
+ 296              	.LVL19:
+ 297              		.loc 1 40 5 view .LVU56
+ 298 001c 84ED000A 		vstr.32	s0, [r4]
+  41:Core/Src/math_ops.c **** }
+ 299              		.loc 1 41 1 view .LVU57
+ 300 0020 BDEC028B 		vldm	sp!, {d8}
+ 301              	.LCFI5:
+ 302              		.cfi_restore 80
+ 303              		.cfi_restore 81
+ 304              		.cfi_def_cfa_offset 8
+ 305              	.LVL20:
+ 306              		.loc 1 41 1 view .LVU58
+ 307 0024 10BD     		pop	{r4, pc}
+ 308              		.loc 1 41 1 view .LVU59
+ 309              		.cfi_endproc
+ 310              	.LFE5:
+ 312              		.section	.text.float_to_uint,"ax",%progbits
+ 313              		.align	1
+ARM GAS  /tmp/ccLFBdPY.s 			page 7
+
+
+ 314              		.global	float_to_uint
+ 315              		.syntax unified
+ 316              		.thumb
+ 317              		.thumb_func
+ 318              		.fpu fpv4-sp-d16
+ 320              	float_to_uint:
+ 321              	.LVL21:
+ 322              	.LFB6:
+  42:Core/Src/math_ops.c **** 
+  43:Core/Src/math_ops.c **** int float_to_uint(float x, float x_min, float x_max, int bits){
+ 323              		.loc 1 43 63 is_stmt 1 view -0
+ 324              		.cfi_startproc
+ 325              		@ args = 0, pretend = 0, frame = 0
+ 326              		@ frame_needed = 0, uses_anonymous_args = 0
+ 327              		@ link register save eliminated.
+  44:Core/Src/math_ops.c **** 	/// Converts a float to an unsigned int, given range and number of bits ///
+  45:Core/Src/math_ops.c **** 	float span = x_max - x_min;
+ 328              		.loc 1 45 2 view .LVU61
+ 329              		.loc 1 45 8 is_stmt 0 view .LVU62
+ 330 0000 31EE601A 		vsub.f32	s2, s2, s1
+ 331              	.LVL22:
+  46:Core/Src/math_ops.c **** 	float offset = x_min;
+ 332              		.loc 1 46 2 is_stmt 1 view .LVU63
+  47:Core/Src/math_ops.c **** 	return (int) ((x-offset)*((float)((1<<bits)-1))/span);
+ 333              		.loc 1 47 2 view .LVU64
+ 334              		.loc 1 47 18 is_stmt 0 view .LVU65
+ 335 0004 30EE600A 		vsub.f32	s0, s0, s1
+ 336              	.LVL23:
+ 337              		.loc 1 47 38 view .LVU66
+ 338 0008 0123     		movs	r3, #1
+ 339 000a 8340     		lsls	r3, r3, r0
+ 340              		.loc 1 47 45 view .LVU67
+ 341 000c 013B     		subs	r3, r3, #1
+ 342              		.loc 1 47 28 view .LVU68
+ 343 000e 07EE903A 		vmov	s15, r3	@ int
+ 344 0012 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 345              		.loc 1 47 26 view .LVU69
+ 346 0016 60EE277A 		vmul.f32	s15, s0, s15
+ 347              		.loc 1 47 49 view .LVU70
+ 348 001a 87EE817A 		vdiv.f32	s14, s15, s2
+  48:Core/Src/math_ops.c **** }
+ 349              		.loc 1 48 1 view .LVU71
+ 350 001e FDEEC77A 		vcvt.s32.f32	s15, s14
+ 351 0022 17EE900A 		vmov	r0, s15	@ int
+ 352              	.LVL24:
+ 353              		.loc 1 48 1 view .LVU72
+ 354 0026 7047     		bx	lr
+ 355              		.cfi_endproc
+ 356              	.LFE6:
+ 358              		.section	.text.uint_to_float,"ax",%progbits
+ 359              		.align	1
+ 360              		.global	uint_to_float
+ 361              		.syntax unified
+ 362              		.thumb
+ 363              		.thumb_func
+ 364              		.fpu fpv4-sp-d16
+ 366              	uint_to_float:
+ARM GAS  /tmp/ccLFBdPY.s 			page 8
+
+
+ 367              	.LVL25:
+ 368              	.LFB7:
+  49:Core/Src/math_ops.c ****     
+  50:Core/Src/math_ops.c ****     
+  51:Core/Src/math_ops.c **** float uint_to_float(int x_int, float x_min, float x_max, int bits){
+ 369              		.loc 1 51 67 is_stmt 1 view -0
+ 370              		.cfi_startproc
+ 371              		@ args = 0, pretend = 0, frame = 0
+ 372              		@ frame_needed = 0, uses_anonymous_args = 0
+ 373              		@ link register save eliminated.
+ 374              		.loc 1 51 67 is_stmt 0 view .LVU74
+ 375 0000 07EE900A 		vmov	s15, r0	@ int
+  52:Core/Src/math_ops.c **** 	/// converts unsigned int to float, given range and number of bits ///
+  53:Core/Src/math_ops.c **** 	float span = x_max - x_min;
+ 376              		.loc 1 53 2 is_stmt 1 view .LVU75
+ 377              		.loc 1 53 8 is_stmt 0 view .LVU76
+ 378 0004 70EEC00A 		vsub.f32	s1, s1, s0
+ 379              	.LVL26:
+  54:Core/Src/math_ops.c **** 	float offset = x_min;
+ 380              		.loc 1 54 2 is_stmt 1 view .LVU77
+  55:Core/Src/math_ops.c **** 	return ((float)x_int)*span/((float)((1<<bits)-1)) + offset;
+ 381              		.loc 1 55 2 view .LVU78
+ 382              		.loc 1 55 10 is_stmt 0 view .LVU79
+ 383 0008 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 384              		.loc 1 55 23 view .LVU80
+ 385 000c 67EEA00A 		vmul.f32	s1, s15, s1
+ 386              	.LVL27:
+ 387              		.loc 1 55 40 view .LVU81
+ 388 0010 0123     		movs	r3, #1
+ 389 0012 8B40     		lsls	r3, r3, r1
+ 390              		.loc 1 55 47 view .LVU82
+ 391 0014 013B     		subs	r3, r3, #1
+ 392              		.loc 1 55 30 view .LVU83
+ 393 0016 07EE903A 		vmov	s15, r3	@ int
+ 394 001a F8EEE77A 		vcvt.f32.s32	s15, s15
+ 395              		.loc 1 55 28 view .LVU84
+ 396 001e 80EEA77A 		vdiv.f32	s14, s1, s15
+  56:Core/Src/math_ops.c **** }
+ 397              		.loc 1 56 1 view .LVU85
+ 398 0022 37EE000A 		vadd.f32	s0, s14, s0
+ 399              	.LVL28:
+ 400              		.loc 1 56 1 view .LVU86
+ 401 0026 7047     		bx	lr
+ 402              		.cfi_endproc
+ 403              	.LFE7:
+ 405              		.text
+ 406              	.Letext0:
+ 407              		.file 2 "/usr/include/newlib/math.h"
+ARM GAS  /tmp/ccLFBdPY.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 math_ops.c
+     /tmp/ccLFBdPY.s:18     .text.fast_fmaxf:0000000000000000 $t
+     /tmp/ccLFBdPY.s:26     .text.fast_fmaxf:0000000000000000 fast_fmaxf
+     /tmp/ccLFBdPY.s:52     .text.fast_fminf:0000000000000000 $t
+     /tmp/ccLFBdPY.s:59     .text.fast_fminf:0000000000000000 fast_fminf
+     /tmp/ccLFBdPY.s:84     .text.fmaxf3:0000000000000000 $t
+     /tmp/ccLFBdPY.s:91     .text.fmaxf3:0000000000000000 fmaxf3
+     /tmp/ccLFBdPY.s:131    .text.fminf3:0000000000000000 $t
+     /tmp/ccLFBdPY.s:138    .text.fminf3:0000000000000000 fminf3
+     /tmp/ccLFBdPY.s:178    .text.limit_norm:0000000000000000 $t
+     /tmp/ccLFBdPY.s:185    .text.limit_norm:0000000000000000 limit_norm
+     /tmp/ccLFBdPY.s:259    .text.limit:0000000000000000 $t
+     /tmp/ccLFBdPY.s:266    .text.limit:0000000000000000 limit
+     /tmp/ccLFBdPY.s:313    .text.float_to_uint:0000000000000000 $t
+     /tmp/ccLFBdPY.s:320    .text.float_to_uint:0000000000000000 float_to_uint
+     /tmp/ccLFBdPY.s:359    .text.uint_to_float:0000000000000000 $t
+     /tmp/ccLFBdPY.s:366    .text.uint_to_float:0000000000000000 uint_to_float
+
+UNDEFINED SYMBOLS
+sqrtf
