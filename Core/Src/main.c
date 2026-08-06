@@ -53,14 +53,14 @@ CAN_HandleTypeDef hcan2;
 osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
-  .stack_size = 128 * 4,
+  .stack_size = 256 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
 
 osThreadId_t Task1Handle;
 const osThreadAttr_t Task1_attributes = {
   .name = "Task1",
-  .stack_size = 128 * 4,
+  .stack_size = 256 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
 /* USER CODE BEGIN PV */
@@ -75,6 +75,7 @@ JointRobot_t motorID_1;
 JointRobot_t motorID_2;
 JointRobot_t motorID_3;
 JointRobot_t motorID_4;
+JointRobot_t motorID_5;
 
 /* USER CODE END PV */
 
@@ -85,7 +86,19 @@ static void MX_GPIO_Init(void);
 void StartDefaultTask(void *argument);
 void Task1(void *argument);
 /* USER CODE BEGIN PFP */
+  float anpha = 0.0f; 
+float f = 1.0f;           // Tần số dao động của động cơ (VD: 1 Hz)
+float dt = 0.005f;        // Chu kỳ vòng lặp 5ms (osDelay(5))
+// float delta = 2.0f * M_PI * f * dt; // Bước nhảy của góc sau mỗi 5ms
 
+
+float speed = 10000.0f;             // Tốc độ mong muốn (VD: 100 độ/giây)
+// float delta_pos = speed * dt;     // Lượng góc tăng/giảm mỗi 5ms (0.5 độ)
+
+float current_pos = 0.0f;         // Góc hiện tại
+float max_pos = 1500.0f;           // Góc tối đa
+float min_pos = -1500.0f;             // Góc tối thiểu
+int8_t direction = 1;             // Chiều quay: 1 (tăng), -1 (giảm)
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -272,6 +285,9 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
           case 0x05:
             Master_Unpack_State_2(&can_rx, &motorID_4.state);
             break;
+          case 0x06:
+            Master_Unpack_State_2(&can_rx, &motorID_5.state);
+            break;
           
           default:
             break;
@@ -292,25 +308,46 @@ void Task1(void *argument)
   for(;;)
   {
 
-    DataCmdJoint(&motorID_3.cmd, DEG_TO_RAD(0),RPM_TO_RADS(10),0);
-    MasterSendData_2(&hcan2, &can_tx, &motorID_3.cmd);
+    DataCmdJoint(&motorID_1.cmd, DEG_TO_RAD(-45),RPM_TO_RADS(10),0);
+    MasterSendData_2(&hcan2, &can_tx, &motorID_1.cmd);
     osDelay(1000); 
-    DataCmdJoint(&motorID_3.cmd, DEG_TO_RAD(180),RPM_TO_RADS(-10),0);
-    MasterSendData_2(&hcan2, &can_tx, &motorID_3.cmd);
+    DataCmdJoint(&motorID_1.cmd, DEG_TO_RAD(45),RPM_TO_RADS(-10),0);
+    MasterSendData_2(&hcan2, &can_tx, &motorID_1.cmd);
     osDelay(1000);    
-    DataCmdJoint(&motorID_3.cmd, DEG_TO_RAD(360),RPM_TO_RADS(50),0);
-    MasterSendData_2(&hcan2, &can_tx, &motorID_3.cmd);
+    DataCmdJoint(&motorID_1.cmd, DEG_TO_RAD(-90),RPM_TO_RADS(50),0);
+    MasterSendData_2(&hcan2, &can_tx, &motorID_1.cmd);
+    osDelay(1000);
+    DataCmdJoint(&motorID_1.cmd, DEG_TO_RAD(90),RPM_TO_RADS(-50),0);
+    MasterSendData_2(&hcan2, &can_tx, &motorID_1.cmd);
     osDelay(1000);
 
-    DataCmdJoint(&motorID_3.cmd, DEG_TO_RAD(0),RPM_TO_RADS(-50),0);
-    MasterSendData_2(&hcan2, &can_tx, &motorID_3.cmd);
+    DataCmdJoint(&motorID_1.cmd, DEG_TO_RAD(-270),RPM_TO_RADS(300),0);
+    MasterSendData_2(&hcan2, &can_tx, &motorID_1.cmd);
     osDelay(1000); 
-    DataCmdJoint(&motorID_3.cmd, DEG_TO_RAD(180),RPM_TO_RADS(100),0);
-    MasterSendData_2(&hcan2, &can_tx, &motorID_3.cmd);
+    DataCmdJoint(&motorID_1.cmd, DEG_TO_RAD(270),RPM_TO_RADS(-300),0);
+    MasterSendData_2(&hcan2, &can_tx, &motorID_1.cmd);
     osDelay(1000);    
-    DataCmdJoint(&motorID_3.cmd, DEG_TO_RAD(360),RPM_TO_RADS(-100),0);
-    MasterSendData_2(&hcan2, &can_tx, &motorID_3.cmd);
+    DataCmdJoint(&motorID_1.cmd, DEG_TO_RAD(-360),RPM_TO_RADS(1000),0);
+    MasterSendData_2(&hcan2, &can_tx, &motorID_1.cmd);
     osDelay(1000);
+    DataCmdJoint(&motorID_1.cmd, DEG_TO_RAD(360),RPM_TO_RADS(-1000),0);
+    MasterSendData_2(&hcan2, &can_tx, &motorID_1.cmd);
+    osDelay(1000);
+
+    DataCmdJoint(&motorID_1.cmd, DEG_TO_RAD(0),RPM_TO_RADS(1700),0);
+    MasterSendData_2(&hcan2, &can_tx, &motorID_1.cmd);
+    osDelay(1000); 
+    DataCmdJoint(&motorID_1.cmd, DEG_TO_RAD(180),RPM_TO_RADS(-1700),0);
+    MasterSendData_2(&hcan2, &can_tx, &motorID_1.cmd);
+    osDelay(1000);    
+    DataCmdJoint(&motorID_1.cmd, DEG_TO_RAD(360),RPM_TO_RADS(2700),0);
+    MasterSendData_2(&hcan2, &can_tx, &motorID_1.cmd);
+    osDelay(1000);
+    DataCmdJoint(&motorID_1.cmd, DEG_TO_RAD(360),RPM_TO_RADS(2700),0);
+    MasterSendData_2(&hcan2, &can_tx, &motorID_1.cmd);
+    osDelay(1000);
+
+
 
     
   }
@@ -350,20 +387,56 @@ void StartDefaultTask(void *argument)
   motorID_2.cmd.can_id = 0x03;
   motorID_3.cmd.can_id = 0x04;
   motorID_4.cmd.can_id = 0x05;
-  
+  motorID_5.cmd.can_id = 0x06;
+
+
+float delta = 2.0f * M_PI * f * dt; // Bước nhảy của góc sau mỗi 5ms
+
+float delta_pos = speed * dt; 
+
   /* Infinite loop */
   for(;;)
   {
     
-    DataCmdJoint(&motorID_2.cmd, motorID_1.state.p_act, motorID_1.state.v_act, 0);
+    DataCmdJoint(&motorID_4.cmd, motorID_5.state.p_act, motorID_5.state.v_act, 0);
+    MasterSendData_2(&hcan2, &can_tx, &motorID_4.cmd);
+
+    DataCmdJoint(&motorID_5.cmd, motorID_4.state.p_act, motorID_4.state.v_act, 0);
+    MasterSendData_2(&hcan2, &can_tx, &motorID_5.cmd);
+
+    DataCmdJoint(&motorID_2.cmd, DEG_TO_RAD(360*sinf(anpha)), RPM_TO_RADS(360*sinf(anpha)), 0);
     MasterSendData_2(&hcan2, &can_tx, &motorID_2.cmd);
 
-    DataCmdJoint(&motorID_1.cmd, motorID_2.state.p_act, motorID_2.state.v_act, 0);
-    MasterSendData_2(&hcan2, &can_tx, &motorID_1.cmd);
+    anpha += delta;
+
+    if(anpha >= (2.0f * M_PI)) 
+    {
+      anpha -= (2.0f * M_PI);
+    }
+// ==============================
+    // 1. Tính toán vị trí mới
+    // current_pos += direction * delta_pos;
+
+    // // 2. Kiểm tra giới hạn để đảo chiều (Tạo quỹ đạo hình tam giác)
+    // if (current_pos >= max_pos) 
+    // {
+    //   current_pos = max_pos;
+    //   direction = -1; // Đảo chiều quay ngược lại
+    // } 
+    // else if (current_pos <= min_pos) 
+    // {
+    //   current_pos = min_pos;
+    //   direction = 1;  // Đảo chiều quay tiến lên
+    // }
+    // DataCmdJoint(&motorID_3.cmd, DEG_TO_RAD(current_pos), RPM_TO_RADS(360*sinf(anpha)), 0);
+    // MasterSendData_2(&hcan2, &can_tx, &motorID_3.cmd);
+// ==============================
+    
 
 
 
-    osDelay(10);
+
+    osDelay(5);
   }
   
 
